@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-tools
+  namespace: namespace-name
+  labels:
+    app: nw-tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nw-tools
+  template:
+    metadata:
+      labels:
+        app: nw-tools
+    spec:
+      containers:
+      - image: praqma/network-multitool
+        name: network-tools
+        ports:
+        - containerPort: 80
+          name: web-port
+          protocol: TCP
+#        volumeMounts:
+#          - mountPath: "/vol-01"
+#            name: pvc-vol-01
+#      volumes:
+#        - name: pvc-vol-01
+#          persistentVolumeClaim:
+#            claimName: gluster-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-network-tools
+  namespace: namespace-name
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    app: nw-tools
+---
