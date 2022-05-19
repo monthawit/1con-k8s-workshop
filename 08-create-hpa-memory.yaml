@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-demo-hpa-mem
+  namespace: demo
+  labels:
+    app: demo-hpa-mem
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-hpa-mem
+  template:
+    metadata:
+      labels:
+        app: demo-hpa-mem
+    spec:
+      containers:
+      - image: nginx
+        name: web-httpd
+        ports:
+        - containerPort: 80
+          name: web-port
+          protocol: TCP
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "200m"
+          limits:
+            memory: "64Mi"
+            cpu: "250m"
+#      imagePullSecrets:
+#      - name: pull-secret-name
+#        volumeMounts:
+#          - mountPath: "/vol-01"
+#            name: pvc-vol-01
+#      volumes:
+#        - name: pvc-vol-01
+#          persistentVolumeClaim:
+#            claimName: gluster-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-demo-hpa-mem
+  namespace: demo
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: demo-hpa-mem
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-servers
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: deployment-demo-hpa-mem
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 20
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 30Mi
+
