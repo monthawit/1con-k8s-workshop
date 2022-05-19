@@ -1,0 +1,30 @@
+create cert
+
+certbot -d '*.milkymonz.dedyn.io' --manual --preferred-challenges dns certonly
+
+------------------------------------------------------------------------------
+Please deploy a DNS TXT record under the name
+_acme-challenge.milkymonz.dedyn.io with the following value:
+
+7rcJfhipVcf9jWrgZR6QsOly7Spt_WmLL5mM0gzpK70
+
+Before continuing, verify the record is deployed.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/milkymonz.dedyn.io/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/milkymonz.dedyn.io/privkey.pem
+   Your cert will expire on 2022-08-17. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+ - If you like Certbot, please consider supporting our work by:
+--------------------------------------------------------------------------------
+
+Create Secret 
+
+kubectl create secret tls my-tls-secret \
+> --cert=/etc/letsencrypt/live/milkymonz.dedyn.io/fullchain.pem \
+> --key=/etc/letsencrypt/live/milkymonz.dedyn.io/privkey.pem \
+> -n demo
