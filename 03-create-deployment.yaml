@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-demo-httpd
+  namespace: name-space-name
+  labels:
+    app: demo-httpd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-httpd
+  template:
+    metadata:
+      labels:
+        app: demo-httpd
+    spec:
+      containers:
+      - image: image-name-from-registry
+        name: httpd
+        ports:
+        - containerPort: 80
+          name: web-port
+          protocol: TCP
+#      imagePullSecrets:
+#      - name: pull-secret-name
+#        volumeMounts:
+#          - mountPath: "/vol-01"
+#            name: pvc-vol-01
+#      volumes:
+#        - name: pvc-vol-01
+#          persistentVolumeClaim:
+#            claimName: gluster-pvc
