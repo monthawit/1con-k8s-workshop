@@ -22,8 +22,6 @@ spec:
         - containerPort: 80
           name: web-port
           protocol: TCP
-#      imagePullSecrets:
-#      - name: pull-secret-name
 #        volumeMounts:
 #          - mountPath: "/vol-01"
 #            name: pvc-vol-01
@@ -31,3 +29,5 @@ spec:
 #        - name: pvc-vol-01
 #          persistentVolumeClaim:
 #            claimName: gluster-pvc
+#      imagePullSecrets:
+#      - name: pull-secret-name
