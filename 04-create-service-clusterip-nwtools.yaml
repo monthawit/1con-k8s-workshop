@@ -43,3 +43,7 @@ spec:
   selector:
     app: nw-tools
 ---
+
+#
+# kubectl exec -it pod-name bash -n name-space-name
+#
