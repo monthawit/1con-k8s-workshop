@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-demo-hpa
+  namespace: demo
+  labels:
+    app: demo-hpa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-hpa
+  template:
+    metadata:
+      labels:
+        app: demo-hpa
+    spec:
+      containers:
+      - image: httpd
+        name: web-httpd
+        ports:
+        - containerPort: 80
+          name: web-port
+          protocol: TCP
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "200m"
+          limits:
+            memory: "64Mi"
+            cpu: "250m"
+#      imagePullSecrets:
+#      - name: pull-secret-name
+#        volumeMounts:
+#          - mountPath: "/vol-01"
+#            name: pvc-vol-01
+#      volumes:
+#        - name: pvc-vol-01
+#          persistentVolumeClaim:
+#            claimName: gluster-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-demo-hpa
+  namespace: demo
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: demo-httpd-hpa
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: demo-hpa
+  namespace: demo
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: deployment-demo-hpa
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 20
