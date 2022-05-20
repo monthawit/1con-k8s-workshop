@@ -1,0 +1,12 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: test-claim
+  namespace: nfs-storage-class-01
+spec:
+  storageClassName: nfs-storage-class-01
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
