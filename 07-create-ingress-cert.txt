@@ -32,6 +32,39 @@ kubectl create secret tls my-tls-secret \
 
 
 ---------------------------------------------------------------------------------
+Basic Authen Nginx 
+
+1. Create user, pass with htpasswd 
+
+htpasswd -c auth foo
+
+New password:
+Re-type new password:
+
+
+2. Convert htpasswd into a secret
+
+kubectl create secret generic basic-auth --from-file=auth
+
+3. Examine secret
+
+kubectl get secret basic-auth -o yaml
+
+4. Using kubectl, create an ingress tied to the basic-auth secret
+
+metadata:
+  name: ingress-with-auth
+  annotations:
+    # type of authentication
+    nginx.ingress.kubernetes.io/auth-type: basic
+    # name of the secret that contains the user/password definitions
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    # message to display with an appropriate context why the authentication is required
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - foo'
+    
+kubectl apply -f nginx-ingress-file.yaml
+
+-----------------------------------------------------------------------------------------------    
 
 curl with authentication 
 
