@@ -34,6 +34,11 @@ kubectl create secret tls my-tls-secret \
 ---------------------------------------------------------------------------------
 Basic Authen Nginx 
 
+0. install htpasswd 
+
+sudo apt update -y
+apt install apache2-utils -y
+
 1. Create user, pass with htpasswd 
 
 htpasswd -c auth foo
