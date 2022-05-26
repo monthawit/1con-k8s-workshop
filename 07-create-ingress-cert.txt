@@ -28,3 +28,13 @@ kubectl create secret tls my-tls-secret \
 > --cert=/etc/letsencrypt/live/milkymonz.dedyn.io/fullchain.pem \
 > --key=/etc/letsencrypt/live/milkymonz.dedyn.io/privkey.pem \
 > -n demo
+
+
+
+---------------------------------------------------------------------------------
+
+curl with authentication 
+
+curl -v http://test-nginx.nginx-ingress.milkymonz.dedyn.io -u 'kubeadmin'
+
+---------------------------------------------------------------------------------
