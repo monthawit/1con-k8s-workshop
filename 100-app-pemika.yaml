@@ -1,0 +1,75 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: pemika
+  labels:
+    app: pemika
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-pemika
+  namespace: pemika
+  labels:
+    app: pemika
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pemika
+  template:
+    metadata:
+      labels:
+        app: pemika
+    spec:
+      containers:
+      - image: nginx
+        name: web
+        ports:
+        - containerPort: 80
+          name: web-port
+          protocol: TCP
+#        volumeMounts:
+#          - mountPath: "/vol-01"
+#            name: pvc-vol-01
+#      volumes:
+#        - name: pvc-vol-01
+#          persistentVolumeClaim:
+#            claimName: gluster-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-app-pemika
+  namespace: pemika
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    app: pemika
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  namespace: milky
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+      - myapp.pemika-test.dedyn.io
+#    secretName: testsecret-tls
+  rules:
+  - host: myapp.pemika-test.dedyn.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: service-app-pemika
+            port:
+              number: 80
