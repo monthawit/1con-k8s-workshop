@@ -1,5 +1,5 @@
 OS=xUbuntu_20.04
-VERSION=1.23
+VERSION=1.24
 
 sudo swapoff -a
 sudo rm /swap.img
