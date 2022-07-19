@@ -13,3 +13,5 @@ spec:
         - name: web
           containerPort: 80
           protocol: TCP
+  imagePullSecrets:
+  - name: my-registry        
