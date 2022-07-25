@@ -44,6 +44,9 @@ sudo apt install cri-tools -y
 
 crictl version
 
+sudo apt update -y
+sudo apt install nfs-common -y
+
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 
