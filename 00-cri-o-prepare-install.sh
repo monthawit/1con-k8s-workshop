@@ -45,7 +45,8 @@ sudo apt install cri-tools -y
 crictl version
 
 sudo apt update -y
-sudo apt install nfs-common -y
+apt-get install open-iscsi
+apt-get install nfs-common -y
 
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
@@ -55,5 +56,11 @@ sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://pack
 echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 sudo apt-get update
+
+#lastest version
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
+
+#fix version
+#sudo apt-get install -y kubelet=1.24.3-00 kubeadm=1.24.3-00 kubectl=1.24.3-00
+#sudo apt-mark hold kubelet=1.24.3-00 kubeadm=1.24.3-00 kubectl=1.24.3-00
