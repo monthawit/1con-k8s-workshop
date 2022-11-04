@@ -48,6 +48,17 @@ sudo apt update -y
 apt-get install open-iscsi
 apt-get install nfs-common -y
 
+############### Nginx for API LB #######
+
+#sudo apt update -y
+#sudo apt install nginx -y
+
+#systemctl enable nginx 
+#systemctl start nginx
+#systemctl status nginx
+
+######################################
+
 sudo apt-get update
 sudo apt-get install -y apt-transport-https ca-certificates curl
 
@@ -64,3 +75,5 @@ sudo apt-mark hold kubelet kubeadm kubectl
 #fix version
 #sudo apt-get install -y kubelet=1.24.7-00 kubeadm=1.24.7-00 kubectl=1.24.7-00
 #sudo apt-mark hold kubelet=1.24.7-00 kubeadm=1.24.7-00 kubectl=1.24.7-00
+
+
