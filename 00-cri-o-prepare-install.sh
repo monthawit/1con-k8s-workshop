@@ -62,5 +62,5 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 #fix version
-#sudo apt-get install -y kubelet=1.24.3-00 kubeadm=1.24.3-00 kubectl=1.24.3-00
-#sudo apt-mark hold kubelet=1.24.3-00 kubeadm=1.24.3-00 kubectl=1.24.3-00
+#sudo apt-get install -y kubelet=1.24.7-00 kubeadm=1.24.7-00 kubectl=1.24.7-00
+#sudo apt-mark hold kubelet=1.24.7-00 kubeadm=1.24.7-00 kubectl=1.24.7-00
