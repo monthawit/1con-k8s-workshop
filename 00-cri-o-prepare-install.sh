@@ -1,5 +1,5 @@
 OS=xUbuntu_20.04
-VERSION=1.24
+VERSION=1.27
 
 sudo swapoff -a
 sudo rm /swap.img
@@ -48,6 +48,10 @@ sudo apt update -y
 apt-get install open-iscsi
 apt-get install nfs-common -y
 
+############# net-tools ################
+
+apt install net-tools -y
+
 ############### Nginx for API LB #######
 
 #sudo apt update -y
@@ -68,12 +72,10 @@ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https:/
 
 sudo apt-get update
 
-#lastest version
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 #fix version
 #sudo apt-get install -y kubelet=1.24.7-00 kubeadm=1.24.7-00 kubectl=1.24.7-00
 #sudo apt-mark hold kubelet=1.24.7-00 kubeadm=1.24.7-00 kubectl=1.24.7-00
-
 
